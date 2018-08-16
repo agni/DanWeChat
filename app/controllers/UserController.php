@@ -19,7 +19,7 @@ class UserController extends ControllerBase
         $appKey = $this->request->getHeader("appKey");
         $code = $this->getJson(["code"])->code;
         if (!User::login($appKey, $code)) {
-            return $this->sendFail("登录失败");
+            return $this->sendFailure("登录失败");
         }
         return $this->sendMessage("登录成功");
     }
@@ -37,7 +37,7 @@ class UserController extends ControllerBase
         $request = $this->getJson(null, null, true);
         $this->user->assign($request, null, User::$editableData);
         if (!$this->user->save()) {
-            return $this->sendFail("保存失败");
+            return $this->sendFailure("保存失败");
         }
         return $this->sendMessage("保存成功");
     }

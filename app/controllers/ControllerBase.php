@@ -63,7 +63,7 @@ class ControllerBase extends Controller
      * @param string $errCode
      * @return Response
      */
-    protected function sendFail($message, $errCode = "")
+    protected function sendFailure($message, $errCode = "")
     {
         return $this->sendResponse(400, ["message" => $message, "errCode" => $errCode]);
     }
@@ -75,7 +75,7 @@ class ControllerBase extends Controller
      */
     protected function sendParamError()
     {
-        return $this->sendFail("参数错误", "param_err");
+        return $this->sendFailure("参数错误", "param_err");
     }
 
     /**
