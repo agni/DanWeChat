@@ -1,0 +1,5 @@
+# phpStorm
+.idea
+
+# log files
+*.log
