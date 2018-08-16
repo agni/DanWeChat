@@ -12,5 +12,12 @@ class UserRouter extends RouterGroup
                 "action"     => "login",
             ]
         )->via("POST");
+
+        $this->add("/user",
+            [
+                "controller" => "user",
+                "action"     => "edit",
+            ]
+        )->via("PUT");
     }
 }

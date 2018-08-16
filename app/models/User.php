@@ -27,6 +27,8 @@ class User extends ModelBase
     public $updatedAt;
     public $updatedBy;
 
+    public static $editableData = ["nickName", "avatarUrl", "gender", "country", "province", "city"];
+
     public function initialize()
     {
         $this->useDynamicUpdate(true);

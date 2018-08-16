@@ -65,8 +65,8 @@ $di->setShared("session", function () {
 });
 
 $di->setShared("user", function () {
-    $uid = $this->getShared("session")->get("uid", 0);
-    return User::ID($uid) ?: null;
+    $openId = $this->getShared("session")->get("openId", 0);
+    return User::findFirst("openId = \"$openId\" AND status > 0") ?: null;
 });
 
 $di->setShared("view", function () {
