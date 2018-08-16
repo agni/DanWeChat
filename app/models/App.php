@@ -7,7 +7,7 @@
 namespace Dandelion\Models;
 
 
-class MiniProgram extends ModelBase
+class App extends ModelBase
 {
     public $id;
     public $name;
@@ -26,11 +26,11 @@ class MiniProgram extends ModelBase
     public function initialize()
     {
         $this->useDynamicUpdate(true);
-        $this->setSource("common_mini_program");
+        $this->setSource("wx_app");
     }
 
     public function getSource()
     {
-        return "common_mini_program";
+        return "wx_app";
     }
 }

@@ -12,26 +12,5 @@ class UserRouter extends RouterGroup
                 "action"     => "login",
             ]
         )->via("POST");
-
-        $this->add("/user/logout",
-            [
-                "controller" => "user",
-                "action"     => "logout",
-            ]
-        )->via("POST");
-
-        $this->add("/user/info",
-            [
-                "controller" => "user",
-                "action"     => "baseInfo",
-            ]
-        )->via("GET");
-
-        $this->add("/user/info",
-            [
-                "controller" => "user",
-                "action"     => "selfEdit",
-            ]
-        )->via("PATCH");
     }
 }
