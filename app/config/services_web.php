@@ -59,6 +59,7 @@ $di->setShared("session", function () {
     $redisCacheProp = $redisCacheReflect->getProperty("_redis");
     $redisCacheProp->setAccessible(true);
     $redisCacheProp->setValue($redisCache, $this->getShared("redis"));
+    $session->setName("appSession");
     $session->start();
     return $session;
 });
