@@ -7,6 +7,7 @@
 namespace Dandelion\Models;
 
 use Dandelion\Http;
+use Dandelion\WeChat\Crypt;
 use Phalcon\Di;
 
 class User extends ModelBase
@@ -66,6 +67,7 @@ class User extends ModelBase
 
         $openId = $weChatRes->openid;
         $unionId = $weChatRes->unionid ?? "";
+        $sessionKey = $weChatRes->session_key;
         $appUser = static::findFirst(["openId = \"$openId\""]);
         if (!$appUser) {
             $appUser = new static();
@@ -78,6 +80,20 @@ class User extends ModelBase
         }
         Di::getDefault()->get("session")->set("openId", $openId);
         Di::getDefault()->get("session")->set("appId", $app->id);
+        Di::getDefault()->get("session")->set("sessionKey", $sessionKey);
         return true;
+    }
+
+    public function editInfo($encryptedData, $iv)
+    {
+        $sessionKey = $this->getDI()->get("session")->get("sessionKey");
+        $crypt = new Crypt($this->appId, $sessionKey);
+        $crypt->decryptData($encryptedData, $iv);
+        $data = $crypt->getDecryptedData();
+        if (!$data) {
+            return false;
+        }
+        $this->assign(json_decode($data, true), null, static::$editableData);
+        return $this->save();
     }
 }

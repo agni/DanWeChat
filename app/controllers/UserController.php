@@ -2,7 +2,9 @@
 
 namespace Dandelion\Controllers;
 
+use Dandelion\Models\App;
 use Dandelion\Models\User;
+use Dandelion\WeChat\Crypt;
 
 class UserController extends ControllerBase
 {
@@ -34,9 +36,11 @@ class UserController extends ControllerBase
      */
     public function editAction()
     {
-        $request = $this->getJson(null, null, true);
-        $this->user->assign($request, null, User::$editableData);
-        if (!$this->user->save()) {
+        $request = $this->getJson(["encryptedData", "iv"]);
+        $encryptedData = $request->encryptedData;
+        $iv = $request->iv;
+
+        if (!$this->user->editInfo($encryptedData, $iv)) {
             return $this->sendFailure("保存失败");
         }
         return $this->sendMessage("保存成功");
