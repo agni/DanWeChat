@@ -25,8 +25,17 @@ $di->setShared("dispatcher", function () {
     return $dispatcher;
 });
 
-$di->set("router", function () {
+$di->setShared("router", function () {
+    if ("DEV" !== ENV) {
+        $router = $this->get("cache")->get("router");
+        if ($router) {
+            return $router;
+        }
+    }
     $router = require APP_PATH . "/config/router.php";
+    if ("DEV" !== ENV) {
+        $this->get("cache")->save("router", $router);
+    }
     return $router;
 });
 

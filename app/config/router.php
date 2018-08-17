@@ -6,14 +6,19 @@ $router = new Router(false);
 $router->setDefaultNamespace("Dandelion\\Controllers");
 
 $routersDir = APP_PATH . "/config/router/";
-
-include $routersDir . "TestRouter.php";
-include $routersDir . "UserRouter.php";
-include $routersDir . "KeywordRouter.php";
-
-$router->mount(new TestRouter());
-$router->mount(new UserRouter());
-$router->mount(new KeywordRouter());
+$files = new \FilesystemIterator($routersDir);
+$filesBasename = [];
+/** @var \FilesystemIterator $file */
+foreach ($files as $file) {
+    if (!$file->isFile() || "php" !== $file->getExtension()) {
+        continue;
+    }
+    $filesBasename[] = $file->getBasename(".php");
+}
+foreach ($filesBasename as $className) {
+    include $routersDir . $className . ".php";
+    $router->mount(new $className);
+}
 
 $router->notFound([
     "controller" => "index",
