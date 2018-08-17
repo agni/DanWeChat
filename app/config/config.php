@@ -4,8 +4,6 @@ use Phalcon\Config;
 use Phalcon\Logger;
 
 return new Config([
-    "env" => "dev",
-
     "database" => require_once APP_PATH . "/config/mysql.php",
 
     "redis" => require_once APP_PATH . "/config/redis.php",

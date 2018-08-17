@@ -40,7 +40,7 @@ $di->setShared("db", function () {
 $di->setShared('modelsMetadata', function () {
     /** @var mixed|\Phalcon\Config $config */
     $config = $this->getShared("config");
-    if ("dev" === $config->get("env")) {
+    if ("DEV" === ENV) {
         return new MetaDataAdapter();
     }
     $modelsMetadata = new RedisModelsMetadata([

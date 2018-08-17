@@ -31,9 +31,8 @@ class Security extends Plugin
      */
     public function getAcl()
     {
-        $env = $this->config->get("env");
         /** @var AclList $acl */
-        $acl = "dev" === $env ? null : $this->cache->get("AclList");
+        $acl = "DEV" === ENV ? null : $this->cache->get("AclList");
         if (!$acl) {
             $acl = new AclList();
             $acl->setDefaultAction(Acl::DENY);
@@ -60,7 +59,7 @@ class Security extends Plugin
                 }
             }
 
-            "dev" === $env || $this->cache->save("AclList", $acl);
+            "DEV" === ENV || $this->cache->save("AclList", $acl);
         }
         return $acl;
     }

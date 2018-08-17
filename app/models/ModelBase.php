@@ -35,8 +35,7 @@ abstract class ModelBase extends Model
 
     private static function findFromCache($id)
     {
-        $env = DI::getDefault()->get("config")->get("env");
-        if ("dev" === $env) return null;
+        if ("DEV" === ENV) return null;
         $cache = DI::getDefault()->get("modelCache");
         $cacheKey = static::class . ":" . $id;
         $model = $cache->get($cacheKey);
@@ -45,8 +44,7 @@ abstract class ModelBase extends Model
 
     private function updateCache()
     {
-        $env = $this->getDI()->get("config")->get("env");
-        if ("dev" === $env) return;
+        if ("DEV" === ENV) return;
         $cache = $this->getDI()->get("modelCache");
         $cacheKey = static::class . ":" . $this->id;
         if ($this->status > 0) {

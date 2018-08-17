@@ -8,9 +8,7 @@ error_reporting(E_ALL);
 
 define('BASE_PATH', dirname(__DIR__));
 define('APP_PATH', BASE_PATH . '/app');
-define('UPLOAD_PATH', BASE_PATH . '/upload/');
 define('ENV', 'DEV');
-define('DEBUG_MODE', true);
 
 if (isset($_SERVER['HTTP_ORIGIN'])) {
     header('Access-Control-Allow-Origin:' . $_SERVER['HTTP_ORIGIN']);
@@ -45,7 +43,7 @@ try {
     echo json_encode(["message" => $message]);
 } catch (\Error $err) {
     header("HTTP/1.1 500");
-    if (DEBUG_MODE) {
+    if ("DEV" === ENV) {
         echo $err->getMessage() . '<br>';
         echo '<pre>' . $err->getTraceAsString() . '</pre>';
     } else {
