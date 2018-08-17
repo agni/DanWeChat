@@ -2,9 +2,7 @@
 
 namespace Dandelion\Controllers;
 
-use Dandelion\Models\App;
 use Dandelion\Models\User;
-use Dandelion\WeChat\Crypt;
 
 class UserController extends ControllerBase
 {

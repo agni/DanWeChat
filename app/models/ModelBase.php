@@ -90,12 +90,16 @@ abstract class ModelBase extends Model
     /**
      * 逻辑删除，同时删除缓存的数据
      *
+     * @param bool $hard 是否从硬盘删除
      * @return bool
      */
-    public function remove()
+    public function delete($hard = false)
     {
         if (!$this->id) {
             return false;
+        }
+        if ($hard) {
+            return parent::delete();
         }
         $time = time();
         $editor = $this->getDI()->get("user");

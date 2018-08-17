@@ -10,3 +10,7 @@ $di->setShared("dispatcher", function () {
     $dispatcher->setDefaultNamespace("Dandelion\\Tasks");
     return $dispatcher;
 });
+
+$di->setShared("user", function () {
+    return null;
+});
