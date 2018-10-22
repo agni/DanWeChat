@@ -26,16 +26,11 @@ return new Config([
             "test"     => ["*"],
             "index"    => ["*"],
             "keyword"  => ["*"],
-            "user"     => ["login", "logout"],
-            "position" => ["list"],
-            "product"  => ["categoryList", "categoryProduct"],
+            "user"     => ["login", "edit"],
         ],
         "guest"  => [],
         "admin"  => [],
-        "user"   => [
-            "address" => ["list", "edit", "delete"],
-            "user"    => ["baseInfo", "selfEdit"],
-        ],
+        "user"   => [],
     ],
 
     "logger" => [
